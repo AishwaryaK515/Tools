@@ -5,7 +5,7 @@ Jenkins is a Continuous Integration/Continuous Deployment (CI/CD) tool that auto
 ✅ Pulling code from GitHub
 ✅ Building applications
 ✅ Running tests
-✅ Deploying software
+✅ Deploying software 
 
 🔹 Why Use Jenkins?
 
@@ -15,7 +15,16 @@ Supports 1800+ plugins for extra features
 
 🛠️ Step 1: Install Jenkins on Linux :
 Install Jenkins on RHEL/CentOS/Amazon Linux
--  sudo yum install java-11-openjdk -y
+
+
+                                                                                                                   [-sudo amazon-linux-extras enable corretto8  # For Java 8
+                                                                                                                     sudo amazon-linux-extras enable corretto11 # For Java 11
+                                                                                                                     sudo amazon-linux-extras enable corretto17 # For Java 17
+
+                                                                                                                    # Install Corretto
+                                                                                                                  sudo yum install -y java-17-amazon-corretto  # Replace with your desired version (8, 11, or 17)   ]
+
+-  sudo dnf install -y java-17-amazon-corretto
 -  sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
 -  sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io-2023.key
 -   sudo yum install jenkins -y
