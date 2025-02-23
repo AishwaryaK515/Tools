@@ -1,0 +1,76 @@
+Jenkins Basics & Installation  :
+
+📌 What is Jenkins?
+Jenkins is a Continuous Integration/Continuous Deployment (CI/CD) tool that automates:
+✅ Pulling code from GitHub
+✅ Building applications
+✅ Running tests
+✅ Deploying software
+
+🔹 Why Use Jenkins?
+
+Automates builds & deployments
+Integrates with Git, Docker, Kubernetes, AWS, Azure, SonarQube
+Supports 1800+ plugins for extra features
+
+🛠️ Step 1: Install Jenkins on Linux :
+Install Jenkins on RHEL/CentOS/Amazon Linux
+-  sudo yum install java-11-openjdk -y
+-  sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
+-  sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io-2023.key
+-   sudo yum install jenkins -y
+-  sudo systemctl start jenkins
+-  sudo systemctl enable jenkins
+-  sudo systemctl status jenkins
+
+🛠️ Step 2: Access Jenkins Web UI:
+1️⃣ Find Jenkins Initial Admin Password
+-  sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+2️⃣ Open Jenkins Web Interface
+Go to your browser and enter:
+http://<your-server-ip>:8080
+Enter the initial admin password from Step 1.
+3️⃣ Install Plugins
+Choose "Install Suggested Plugins"
+Once installed, create a Jenkins Admin User
+
+✅ Hands-On Practice:
+Install Jenkins on an AWS EC2 instance
+Configure a Jenkins user & admin credentials
+
+🛠️ Step 3: Create Your First Jenkins Job
+🔹 1️⃣ Create a Basic Freestyle Job
+Go to Jenkins Dashboard → New Item
+Enter a Job Name (e.g., First-Jenkins-Job)
+Select Freestyle Project → Click OK
+Scroll down to Build Steps, select "Execute Shell"
+Add the following script:
+echo "Hello, Jenkins! This is my first job."
+Click Save & Build Now
+
+✅ Verify Output:
+Go to Build History → Console Output
+You should see:
+Hello, Jenkins! This is my first job.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
