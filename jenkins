@@ -1,0 +1,107 @@
+Jenkins Pipelines – Automating CI/CD
+
+✅ Why Use Jenkins Pipelines?
+✔ Automates build, test, and deployment workflows
+✔ Uses code (Jenkinsfile) to define CI/CD pipelines
+✔ Supports parallel builds, approvals, and error handling
+
+git branch -m main master
+git fetch origin
+git branch -u origin/master master
+git remote set-head origin -a
+
+
+
+
+🛠️ Step 1: Create a New Pipeline Job in Jenkins
+1️⃣ Go to Jenkins Dashboard → New Item
+2️⃣ Enter Job Name (e.g., GitHub-Pipeline-Job)
+3️⃣ Select Pipeline → Click OK
+4️⃣ Scroll down to Pipeline Definition
+5️⃣ Select Pipeline script from SCM
+6️⃣ Under SCM, select Git
+7️⃣ Enter your GitHub Repository URL
+8️⃣ Change Branch Specifier to master
+9️⃣ In Script Path, set the filename to:
+Jenkinsfile
+🔹 Jenkins will now look for a Jenkinsfile in the repository.
+✅ Click Save
+
+
+🛠️ Step 2: Create a Jenkinsfile in Your GitHub Repo
+Go to your GitHub repository (tools) and create a new file named Jenkinsfile.
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'master', url: 'https://github.com/AishwaryaK515/tools.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
+            }
+        }
+    }
+}
+
+✅ Commit and Push the Jenkinsfile to GitHub:
+
+-  git add Jenkinsfile
+-  git commit -m "Added Jenkins pipeline"
+-  git push origin master
+
+
+🛠️ Step 3: Run the Pipeline in Jenkins
+1️⃣ Go back to Jenkins Dashboard → Your Pipeline Job (GitHub-Pipeline-Job)
+2️⃣ Click "Build Now"
+3️⃣ Check Console Output to see if it:
+
+Clones the repo ✅
+Builds with Maven ✅
+Runs tests ✅
+Deploys the app ✅
+
+🛠️ Step 4: Automate Builds with GitHub Webhook
+Since we used Pipeline from SCM, GitHub webhooks will trigger a build whenever there is a change in the Jenkinsfile or project code.
+
+✅ Summary of Day 3
+✔ Created a Jenkins Pipeline Job
+✔ Stored Jenkinsfile in GitHub
+✔ Automated Clone → Build → Test → Deploy Steps
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
