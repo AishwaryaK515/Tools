@@ -1,0 +1,136 @@
+Integrating Jenkins with GitHub (CI/CD Setup):
+
+📌 What is GitHub Integration in Jenkins?
+✅ Jenkins can pull code from GitHub repositories
+✅ Webhooks allow GitHub to trigger Jenkins automatically when a new commit is pushed
+✅ Automates CI/CD workflows
+
+🛠️ Step 1: Install Git in Jenkins Server
+🛠️ Step 2: Install & Configure Git Plugin in Jenkins
+🛠️ Step 3: Generate SSH Key for Jenkins (If Using Private Repo)
+🛠️ Step 4: Create a New Jenkins Job for GitHub Integration
+🛠️ Step 5: Automate Builds with GitHub Webhook
+🛠️ Step 6: Verify Jenkins is Triggering Builds
+
+
+
+🛠️ Step 1: Install Git in Jenkins Server
+🔹 Install Git on Linux
+For Ubuntu/Debian:
+-  sudo apt update
+-  sudo apt install git -y
+For RHEL/CentOS/Amazon Linux:
+-  sudo yum install git -y
+-  git --version
+
+
+🛠️ Step 2: Install & Configure Git Plugin in Jenkins
+1️⃣ Go to Jenkins Dashboard → Manage Jenkins → Plugins
+2️⃣ Search for "Git Plugin" → Install it
+3️⃣ Restart Jenkins after installation
+
+✅ Configure Git in Jenkins
+1️⃣ Go to Manage Jenkins → Global Tool Configuration
+2️⃣ Scroll to Git and set:
+Path to Git executable: /usr/bin/git
+3️⃣ Click Save
+
+🛠️ Step 3: Generate SSH Key for Jenkins (If Using Private Repo)
+If you're using a private GitHub repo, Jenkins needs SSH authentication.
+
+1️⃣ Generate SSH Key for Jenkins
+-  sudo -u jenkins ssh-keygen
+2️⃣ Copy the Public Key
+-sudo cat /var/lib/jenkins/.ssh/id_rsa.pub
+
+3️⃣ Add the Public Key to GitHub
+Go to GitHub → Settings → SSH & GPG Keys → New SSH Key
+Paste the public key and save
+
+✅ Test SSH Connection
+-  sudo -u jenkins ssh -T git@github.com
+If successful, you should see:
+Hi <your-github-username>! You've successfully authenticated.
+
+🛠️ Step 4: Create a New Jenkins Job for GitHub Integration
+1️⃣ Go to Jenkins Dashboard → New Item
+2️⃣ Enter a Job Name (e.g., GitHub-Integration-Job)
+3️⃣ Select Freestyle Project → Click OK
+4️⃣ Under Source Code Management, select Git
+5️⃣ Add your GitHub Repository URL
+
+For Public Repos: Use HTTPS (e.g., https://github.com/your-username/your-repo.git)
+For Private Repos: Use SSH (e.g., git@github.com:your-username/your-repo.git)
+6️⃣ Under Build Triggers, select "Poll SCM" and set:
+H/5 * * * *  # Polls GitHub every 5 minutes
+7️⃣ Under Build Steps, select "Execute Shell"
+8️⃣ Add the following script:
+echo "Cloning Repository..."
+git pull origin master
+echo "Build completed successfully!"
+9️⃣ Click Save & Build Now
+
+✅ Hands-On Practice:
+Run the job and check the Console Output
+Verify Jenkins is pulling the latest code
+
+🛠️ Step 5: Automate Builds with GitHub Webhook
+Instead of polling every 5 minutes, we can trigger Jenkins automatically using GitHub Webhooks.
+
+🔹 1️⃣ Configure Webhook in GitHub
+Go to your GitHub Repository → Settings → Webhooks
+Click "Add Webhook"
+In Payload URL, enter:
+http://<your-jenkins-server-ip>:8080/github-webhook/
+Select "application/json" as Content Type
+Under Which events would you like to trigger this webhook?, select:
+✅ Just the push event
+Click Add Webhook
+
+🔹 2️⃣ Enable Webhook Trigger in Jenkins
+1️⃣ Go to Jenkins → Your Job → Configure
+2️⃣ Under Build Triggers, select "GitHub hook trigger for GITScm polling"
+3️⃣ Click Save
+
+✅ Hands-On Practice:
+Push a new commit to GitHub
+Check if Jenkins automatically starts a new build
+
+🛠️ Step 6: Verify Jenkins is Triggering Builds
+1️⃣ Check Build History
+Go to Jenkins Dashboard → Your Job (GitHub-Integration-Job)
+Look at the Build History panel on the left
+If a new build appears after your GitHub commit, the webhook worked ✅
+If no new build appears, the webhook did not trigger ❌
+2️⃣ Check Console Output for the Latest Build
+Click on the latest build in Build History
+Click Console Output
+Check for messages like:
+Started by GitHub push
+Building in workspace /var/lib/jenkins/workspace/GitHub-Integration-Job
+Pulling latest code from GitHub...
+If you see this, Jenkins was triggered by the GitHub webhook. 🚀
+
+
+
+🔹 Summary: What We Covered in Day 2
+✔ Installed & configured Git on Jenkins
+✔ Created a Freestyle Job to pull code from GitHub
+✔ Set up GitHub Webhooks for automatic triggers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
