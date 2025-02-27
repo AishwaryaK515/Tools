@@ -62,6 +62,10 @@ Go to your GitHub repository (tools) and create a new file named Jenkinsfile.
 pipeline {
     agent any
 
+         tools {
+        maven 'maven'  // Ensure this matches the name in Global Tool Configuration
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
