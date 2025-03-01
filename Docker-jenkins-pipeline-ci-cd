@@ -380,11 +380,35 @@ Since Jenkins needs **authentication** to push images, we must **store Docker Hu
 ## **🔹 Step 4: Deploy & Run Your Dockerized Application**
 Now that Jenkins **automates CI/CD**, you can **run your application anywhere**.
 
-### **On a New Server**
-```bash
-docker pull yourdockerhubuser/my-java-app:latest
-docker run -d -p 8080:8080 yourdockerhubuser/my-java-app:latest
-```
+### **On a New Server**              - ubuntu
+Step 1: Update Package Index
+-  sudo apt update
+-  sudo apt upgrade -y
+
+Step 2: Install Required Packages
+-  sudo apt install -y ca-certificates curl gnupg
+
+Step 3: Add Docker's Official GPG Key
+-  sudo install -m 0755 -d /etc/apt/keyrings
+-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc > /dev/null
+-  sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+Step 4: Add Docker Repository
+-  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+-  sudo apt update
+
+Step 6: Start and Enable Docker Service
+-  sudo systemctl start docker
+-  sudo systemctl enable docker
+
+Step 7: Verify Installation
+-  sudo docker --version
+-  sudo docker run hello-world
+
+After this, try pulling your Docker image :
+-  docker pull yourdockerhubuser/my-java-app:latest
+-  docker run -d -p 8080:8080 yourdockerhubuser/my-java-app:latest
+
 ✅ **Now your app is running inside a Docker container!** 🚀  
 
 ---
@@ -396,6 +420,8 @@ docker run -d -p 8080:8080 yourdockerhubuser/my-java-app:latest
 ✔ Pulled & deployed the Docker image anywhere  
 
 ---
+
+
 
 
 
