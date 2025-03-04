@@ -335,7 +335,7 @@ pipeline {
             echo "❌ Deployment Failed!"
         }
     }
-}  // Closing brace for 'pipeline'
+} 
 
 ```
 ✅ **What This Jenkinsfile Does:**  
@@ -344,7 +344,7 @@ pipeline {
 ✔ **Builds a Docker image**  
 ✔ **Pushes the image to Docker Hub**  
 
-📌 **Now, let’s store Docker credentials in Jenkins.**  
+📌 **Now, let’s store Docker credenials in Jenkins.**  
 
 ---
 
